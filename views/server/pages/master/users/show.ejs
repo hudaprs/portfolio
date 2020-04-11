@@ -1,0 +1,43 @@
+<%- include('../../../layouts/header.ejs') %>
+  <div class="card">
+    <div class="card-header">
+      <h5 class="card-title float-left">
+        Detail Of Users
+      </h5>
+      <div class="float-right">
+        <a href="/server/master/users" class="btn btn-sm btn-default text-dark">
+          Back
+        </a>
+      </div>
+    </div>
+
+    <div class="card-body">
+      <p>
+        <strong>Name</strong>: <%= user.name %>
+      </p>
+      <p>
+        <strong>Email</strong>: <%= user.email %>
+      </p>
+      <p>
+        <strong>Created At</strong>: <%= moment(user.createdAt).format('DD-MM-YYYY HH:mm') %>
+      </p>
+      <% if(user.updatedAt) { %>
+        <p>
+          <strong>Updated At</strong>: <%= moment(user.updatedAt).format('DD-MM-YYYY HH:mm') %>
+        </p> 
+      <% } %>  
+    </div>
+
+    <div class="card-footer">
+      <form action="/server/master/users/delete/<%= user._id %>" method="POST">
+        <input type="hidden" name="_id" value="<%= user._id %>">
+        <button class="btn btn-sm btn-danger float-right ml-2" onclick="return confirm('Delete <%= user.name %>?')">
+          <em class="fas fa-trash"></em>
+        </button>
+      </form>  
+      <a href="/server/master/users/edit/<%= user._id %>" class="btn btn-sm btn-warning float-right">
+        <em class="fas fa-pen"></em>
+      </a>
+    </div>
+  </div>
+<%- include('../../../layouts/footer.ejs') %>
